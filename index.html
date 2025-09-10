@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiêu đề Bài báo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .container {
+            max-width: 800px;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="container mx-auto bg-white p-6 rounded-xl shadow-lg">
+        <h1 class="text-3xl font-bold text-center mb-6">Tiêu đề các Bài báo</h1>
+        
+        <div class="mb-6 flex flex-col sm:flex-row gap-4">
+            <input type="text" id="searchInput" placeholder="Tìm kiếm tiêu đề..." class="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus-ring-blue-500">
+            <select id="categoryFilter" class="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option value="all">Tất cả thể loại</option>
+                <option value="Công nghệ">Công nghệ</option>
+                <option value="Kinh tế">Kinh tế</option>
+                <option value="Giải trí">Giải trí</option>
+                <option value="Thể thao">Thể thao</option>
+            </select>
+        </div>
+
+        <div id="articlesList" class="space-y-4">
+            <!-- Articles will be rendered here by JavaScript -->
+        </div>
+
+    </div>
+
+    <script>
+        const articles = [
+            { title: "ChatGPT-4o: Model mới của OpenAI gây sốt với khả năng tương tác tự nhiên", category: "Công nghệ" },
+            { title: "Châu Âu áp dụng luật mới về AI để bảo vệ quyền riêng tư người dùng", category: "Công nghệ" },
+            { title: "Giá Bitcoin vượt mốc 70.000 USD, thị trường tiền mã hóa sôi động trở lại", category: "Kinh tế" },
+            { title: "FED dự kiến giữ nguyên lãi suất trong cuộc họp sắp tới", category: "Kinh tế" },
+            { title: "Phim điện ảnh Việt Nam đạt doanh thu kỷ lục sau tuần đầu công chiếu", category: "Giải trí" },
+            { title: "Nghệ sĩ A ra mắt MV mới, nhận được nhiều lời khen ngợi", category: "Giải trí" },
+            { title: "Đội tuyển bóng đá quốc gia giành chiến thắng kịch tính trước đối thủ mạnh", category: "Thể thao" },
+            { title: "Giải bóng rổ nhà nghề khởi động mùa giải mới với nhiều bất ngờ", category: "Thể thao" }
+        ];
+
+        const articlesList = document.getElementById('articlesList');
+        const searchInput = document.getElementById('searchInput');
+        const categoryFilter = document.getElementById('categoryFilter');
+
+        function renderArticles(filterText = '', filterCategory = 'all') {
+            articlesList.innerHTML = '';
+            const filteredArticles = articles.filter(article => {
+                const matchesSearch = article.title.toLowerCase().includes(filterText.toLowerCase());
+                const matchesCategory = filterCategory === 'all' || article.category === filterCategory;
+                return matchesSearch && matchesCategory;
+            });
+
+            if (filteredArticles.length === 0) {
+                articlesList.innerHTML = '<p class="text-center text-gray-500">Không tìm thấy bài báo nào.</p>';
+                return;
+            }
+
+            filteredArticles.forEach(article => {
+                const articleElement = document.createElement('div');
+                articleElement.className = 'p-4 bg-gray-50 border border-gray-200 rounded-lg transition-all duration-200 hover:shadow-md';
+                articleElement.innerHTML = `
+                    <h2 class="text-lg font-semibold text-gray-800">${article.title}</h2>
+                    <p class="text-sm text-gray-600 mt-1">Thể loại: ${article.category}</p>
+                `;
+                articlesList.appendChild(articleElement);
+            });
+        }
+
+        searchInput.addEventListener('input', () => {
+            renderArticles(searchInput.value, categoryFilter.value);
+        });
+
+        categoryFilter.addEventListener('change', () => {
+            renderArticles(searchInput.value, categoryFilter.value);
+        });
+
+        // Initial render
+        renderArticles();
+    </script>
+</body>
+</html>

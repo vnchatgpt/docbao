@@ -1,0 +1,21 @@
+{
+"name": "Tiêu đề Bài báo",
+"short_name": "Bài báo",
+"description": "Một ứng dụng đơn giản để xem và tìm kiếm tiêu đề các bài báo.",
+"start_url": "/index.html",
+"display": "standalone",
+"background_color": "#F3F4F6",
+"theme_color": "#ffffff",
+"icons": [
+{
+"src": "https://www.google.com/search?q=https://placehold.co/192x192/ffffff/000000%3Ftext%3DNews",
+"sizes": "192x192",
+"type": "image/png"
+},
+{
+"src": "https://www.google.com/search?q=https://placehold.co/512x512/ffffff/000000%3Ftext%3DNews",
+"sizes": "512x512",
+"type": "image/png"
+}
+]
+}
